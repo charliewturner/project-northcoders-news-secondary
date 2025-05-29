@@ -85,19 +85,18 @@ const seed = ({ topicData, userData, articleData, commentData }) => {
       `DROP TABLE IF EXISTS comments; DROP TABLE IF EXISTS articles;DROP TABLE IF EXISTS users;DROP TABLE IF EXISTS topics;`
     )
     .then(() => {
-      return createTopicsTable();
+      return db.query(createTopicsTable);
     })
-
     .then(() => {
-      return createUsersTable();
+      return db.query(createUsersTable);
     })
-
     .then(() => {
-      return createArticlesTable();
+      return db.query(createArticlesTable);
     })
-
     .then(() => {
-      return createCommentsTable();
+      console.log("Tables created successfully!");
+      return db.query(createCommentsTable);
     });
 };
+
 module.exports = seed;
