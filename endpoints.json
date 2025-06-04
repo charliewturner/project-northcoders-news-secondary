@@ -23,5 +23,14 @@
         }
       ]
     }
+  },
+  "GET /api/users": {
+    "description": "serves an array of objects containing the users",
+    "queries": [],
+    "exampleResponse": {
+      "username": "username",
+      "name": "name",
+      "avatar_url": "avatar.url"
+    }
   }
 }

@@ -67,3 +67,21 @@ describe("GET /api/articles", () => {
       });
   });
 });
+
+describe("GET /api/users", () => {
+  test("200: Responds with an object containing an array of users", () => {
+    return request(app)
+      .get("/api/users")
+      .expect(200)
+      .then(({ body }) => {
+        expect(Array.isArray(body.users)).toEqual(true);
+        expect(Object.keys(body)).toEqual(["users"]);
+        console.log(body);
+        body.users.forEach((article) => {
+          expect(article.hasOwnProperty("username")).toEqual(true);
+          expect(article.hasOwnProperty("name")).toEqual(true);
+          expect(article.hasOwnProperty("avatar_url")).toEqual(true);
+        });
+      });
+  });
+});

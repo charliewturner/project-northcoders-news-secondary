@@ -11,3 +11,9 @@ exports.selectAllArticles = () => {
     return data.rows;
   });
 };
+
+exports.selectAllUsers = () => {
+  return db.query("SELECT * FROM users").then((data) => {
+    return data.rows;
+  });
+};
