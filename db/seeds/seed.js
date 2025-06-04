@@ -60,7 +60,9 @@ const seed = ({ topicData, userData, articleData, commentData }) => {
       return db.query(createArticlesTable);
     })
     .then(() => {
-      console.log("Tables created successfully!");
+      if (process.env.NODE_ENV !== "test") {
+        console.log("Tables successfully updated!");
+      }
       return db.query(createCommentsTable);
     })
     .then(() => {
@@ -144,7 +146,9 @@ const seed = ({ topicData, userData, articleData, commentData }) => {
       return db.query(updateCommentsTable);
     })
     .then(() => {
-      console.log("Tables successfully updated!");
+      if (process.env.NODE_ENV !== "test") {
+        console.log("Tables successfully updated!");
+      }
     })
     .catch((err) => {
       console.log("Error during seeding: " + err);
