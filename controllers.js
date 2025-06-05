@@ -2,6 +2,7 @@ const {
   selectAllTopics,
   selectAllArticles,
   selectAllUsers,
+  selectArticleById,
 } = require("./models");
 
 exports.getAllTopics = (request, response) => {
@@ -22,6 +23,18 @@ exports.getAllArticles = (request, response) => {
         .map(({ body, ...rest }) => rest)
         .sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
       response.status(200).send({ articles: formattedArticles });
+    })
+    .catch((err) => {
+      console.log(err);
+      response.status(500).send({ error: "Internal server error" });
+    });
+};
+
+exports.getArticleById = (request, response) => {
+  const { article_id } = request.params;
+  selectArticleById(article_id)
+    .then((article) => {
+      response.status(200).send({ article });
     })
     .catch((err) => {
       console.log(err);

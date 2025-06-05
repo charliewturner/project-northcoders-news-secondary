@@ -53,7 +53,6 @@ describe("GET /api/articles", () => {
       .then(({ body }) => {
         expect(Array.isArray(body.articles)).toEqual(true);
         expect(Object.keys(body)).toEqual(["articles"]);
-
         body.articles.forEach((article) => {
           expect(article.hasOwnProperty("article_id")).toEqual(true);
           expect(article.hasOwnProperty("title")).toEqual(true);
@@ -68,6 +67,26 @@ describe("GET /api/articles", () => {
   });
 });
 
+describe("GET /api/articles/:article_id", () => {
+  test("200: Responds with an object with the key of article and the value of an article object", () => {
+    return request(app)
+      .get("/api/articles/3")
+      .expect(200)
+      .then(({ body }) => {
+        console.log(body);
+        expect(Object.keys(body)).toEqual(["article"]);
+
+        expect(body.article.hasOwnProperty("article_id")).toEqual(true);
+        expect(body.article.hasOwnProperty("title")).toEqual(true);
+        expect(body.article.hasOwnProperty("topic")).toEqual(true);
+        expect(body.article.hasOwnProperty("author")).toEqual(true);
+        expect(body.article.hasOwnProperty("body")).toEqual(true);
+        expect(body.article.hasOwnProperty("created_at")).toEqual(true);
+        expect(body.article.hasOwnProperty("votes")).toEqual(true);
+        expect(body.article.hasOwnProperty("article_img_url")).toEqual(true);
+      });
+  });
+});
 describe("GET /api/users", () => {
   test("200: Responds with an object containing an array of users", () => {
     return request(app)
@@ -76,7 +95,6 @@ describe("GET /api/users", () => {
       .then(({ body }) => {
         expect(Array.isArray(body.users)).toEqual(true);
         expect(Object.keys(body)).toEqual(["users"]);
-        console.log(body);
         body.users.forEach((article) => {
           expect(article.hasOwnProperty("username")).toEqual(true);
           expect(article.hasOwnProperty("name")).toEqual(true);
