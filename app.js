@@ -8,6 +8,7 @@ const {
   getArticleById,
   postCommentByArticleId,
   patchArticleVotes,
+  deleteCommentById,
 } = require("./controllers.js");
 const endpoints = require("./endpoints.json");
 
@@ -24,5 +25,7 @@ app.get("/api/users", getAllUsers);
 app.post("/api/articles/:article_id/comments", postCommentByArticleId);
 
 app.patch("/api/articles/:article_id", patchArticleVotes);
+
+app.delete("/api/comments/:comment_id", deleteCommentById);
 
 module.exports = app;

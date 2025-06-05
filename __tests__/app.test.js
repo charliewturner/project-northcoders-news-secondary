@@ -143,7 +143,6 @@ describe("PATCH /api/articles/:article_id", () => {
       .send(votes)
       .expect(200)
       .then(({ body }) => {
-        console.log(body);
         expect(body.votes).toBe(38);
       });
   });
@@ -157,7 +156,6 @@ describe("PATCH /api/articles/:article_id", () => {
       .send(votes)
       .expect(200)
       .then(({ body }) => {
-        console.log(body);
         expect(body.votes).toBe(-50);
       });
   });
@@ -174,5 +172,17 @@ describe("PATCH /api/articles/:article_id", () => {
     };
 
     return request(app).patch("/api/articles/317").send(votes).expect(404);
+  });
+});
+
+describe("DELETE /api/comments/:comment_id", () => {
+  test("Deletes the comment specified by the comment_id passed in", () => {
+    return request(app)
+      .delete("/api/comments/1")
+      .send()
+      .expect(204)
+      .then((response) => {
+        console.log(response);
+      });
   });
 });

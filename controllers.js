@@ -5,6 +5,7 @@ const {
   selectArticleById,
   insertCommentByArticleId,
   updateArticleVotes,
+  removeCommentById,
 } = require("./models");
 
 exports.getAllTopics = (request, response) => {
@@ -67,7 +68,6 @@ exports.patchArticleVotes = (request, response, next) => {
       response.status(200).send(updatedArticle);
     })
     .catch((err) => {
-      console.log(err);
       next(err);
     });
 };
@@ -81,4 +81,13 @@ exports.getAllUsers = (request, response) => {
       console.log(err);
       response.status(500).send({ error: "Internal server error" });
     });
+};
+
+exports.deleteCommentById = (request, response, next) => {
+  const { comment_id } = request.params;
+  removeCommentById(comment_id)
+    .then(() => {
+      response.status(204).send();
+    })
+    .catch(next);
 };
