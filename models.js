@@ -42,4 +42,18 @@ exports.insertCommentByArticleId = (article_id, { username, body }) => {
     .then(({ rows }) => rows[0]);
 };
 
-exports.updateArticleVotes = (article_id, inc_votes) => {};
+exports.updateArticleVotes = (article_id, inc_votes) => {
+  if (typeof inc_votes !== "number") {
+    return Promise.reject({ status: 400, msg: "Invalid vote count" });
+  }
+  return db
+    .query(
+      "UPDATE articles SET votes = votes $1 WHERE article_id = $2 RETURNING *"
+    )
+    .then(({ rows }) => {
+      if (rows.length === 0) {
+        return Promise.reject({ status: 404, msg: "Article not found" });
+      }
+      return rows[0];
+    });
+};

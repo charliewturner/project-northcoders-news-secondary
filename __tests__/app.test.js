@@ -117,7 +117,7 @@ describe("POST /api/articles/:article_id/comments", () => {
       .expect(201)
       .then(({ body }) => {
         const { comment } = body;
-        console.log(body);
+
         expect(comment).hasOwnProperty("comment_id");
         expect(comment).hasOwnProperty("article_id");
         expect(comment).hasOwnProperty("body");
@@ -139,9 +139,9 @@ describe.skip("PATCH /api/articles/:article_id", () => {
     };
 
     return request(app)
-      .post("/api/articles/3/comments")
+      .patch("/api/articles/3/comments")
       .send(votes)
-      .expect(201)
+      .expect(200)
       .then(({ body }) => {
         const { comment } = body;
 
