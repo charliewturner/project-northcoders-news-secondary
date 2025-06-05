@@ -133,20 +133,46 @@ describe("POST /api/articles/:article_id/comments", () => {
 });
 
 describe("PATCH /api/articles/:article_id", () => {
-  test("Accepts an object containing voting data. The data updates the votes key on the specified article", () => {
+  test("Accepts an object containing voting data. The data updates the votes key on the specified article when passed a positive number of votes", () => {
     const votes = {
       inc_votes: 38,
     };
 
     return request(app)
       .patch("/api/articles/3")
-      .send({
-        inc_votes: 38,
-      })
+      .send(votes)
       .expect(200)
       .then(({ body }) => {
         console.log(body);
         expect(body.votes).toBe(38);
       });
+  });
+  test("Accepts an object containing voting data. The data updates the votes key on the specified article when passed a negative number of votes", () => {
+    const votes = {
+      inc_votes: -50,
+    };
+
+    return request(app)
+      .patch("/api/articles/3")
+      .send(votes)
+      .expect(200)
+      .then(({ body }) => {
+        console.log(body);
+        expect(body.votes).toBe(-50);
+      });
+  });
+  test("When passed an invalid data type for votes, passes the correct error back", () => {
+    const votes = {
+      inc_votes: "invalid entry",
+    };
+
+    return request(app).patch("/api/articles/3").send(votes).expect(400);
+  });
+  test("When trying to amend votes on an invalid article ID, returns a 404", () => {
+    const votes = {
+      inc_votes: 23,
+    };
+
+    return request(app).patch("/api/articles/317").send(votes).expect(404);
   });
 });
