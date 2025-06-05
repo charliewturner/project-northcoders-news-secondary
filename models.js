@@ -1,4 +1,5 @@
 const db = require("./db/connection.js");
+const { articleData } = require("./db/data/development-data/index.js");
 
 exports.selectAllTopics = () => {
   return db.query("SELECT * FROM topics").then((data) => {
@@ -27,4 +28,14 @@ exports.selectAllUsers = () => {
   return db.query("SELECT * FROM users").then((data) => {
     return data.rows;
   });
+};
+
+exports.insertCommentByArticleId = (article_id, { username, body }) => {
+  if (!username || !body) {
+    return Promise.reject({ status: 400, msg: "Missing required field(s)" });
+  }
+  return db.query(
+    "INSERT INTO comments (article_id, author, body) VALUES ($1, $2, $3) RETURNING *",
+    [article_id, username, body]
+  );
 };

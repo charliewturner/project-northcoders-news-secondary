@@ -3,6 +3,7 @@ const {
   selectAllArticles,
   selectAllUsers,
   selectArticleById,
+  insertCommentByArticleId,
 } = require("./models");
 
 exports.getAllTopics = (request, response) => {
@@ -35,6 +36,20 @@ exports.getArticleById = (request, response) => {
   selectArticleById(article_id)
     .then((article) => {
       response.status(200).send({ article });
+    })
+    .catch((err) => {
+      console.log(err);
+      response.status(500).send({ error: "Internal server error" });
+    });
+};
+
+exports.postCommentByArticleId = (request, response) => {
+  const { article_id } = request.params;
+  const newComment = {request.data}
+
+  insertCommentByArticleId(article_id, newComment)
+    .then((article) => {
+      response.status(200).send({ article: comments });
     })
     .catch((err) => {
       console.log(err);
