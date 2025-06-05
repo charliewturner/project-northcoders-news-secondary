@@ -45,7 +45,7 @@ exports.getArticleById = (request, response) => {
 
 exports.postCommentByArticleId = (request, response, next) => {
   const { article_id } = request.params;
-  const newComment = request.data;
+  const newComment = request.body;
 
   insertCommentByArticleId(article_id, newComment)
     .then((comment) => {

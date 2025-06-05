@@ -73,7 +73,6 @@ describe("GET /api/articles/:article_id", () => {
       .get("/api/articles/3")
       .expect(200)
       .then(({ body }) => {
-        console.log(body);
         expect(Object.keys(body)).toEqual(["article"]);
 
         expect(body.article.hasOwnProperty("article_id")).toEqual(true);
@@ -105,23 +104,31 @@ describe("GET /api/users", () => {
   });
 });
 
-describe("POST /api/articles/:article_id/comments", () => {
+describe.only("POST /api/articles/:article_id/comments", () => {
   test("201: Adds a comment to the specified article with the correct author/username", () => {
-    return request(app)
-      .get("/api/articles/3/comments")
-      .expect(200)
-      .then(({ body }) => {
-        console.log(body);
-        expect(Object.keys(body)).toEqual(["article"]);
+    const newComment = {
+      username: "butter_bridge",
+      body: "Placeholder comment <--",
+    };
 
-        expect(body.article.hasOwnProperty("article_id")).toEqual(true);
-        expect(body.article.hasOwnProperty("title")).toEqual(true);
-        expect(body.article.hasOwnProperty("topic")).toEqual(true);
-        expect(body.article.hasOwnProperty("author")).toEqual(true);
-        expect(body.article.hasOwnProperty("body")).toEqual(true);
-        expect(body.article.hasOwnProperty("created_at")).toEqual(true);
-        expect(body.article.hasOwnProperty("votes")).toEqual(true);
-        expect(body.article.hasOwnProperty("article_img_url")).toEqual(true);
+    return request(app)
+      .post("/api/articles/3/comments")
+      .send(newComment)
+      .expect(201)
+      .then(({ body }) => {
+        const { comment } = body;
+        console.log(comment);
+
+        expect(comment).hasOwnProperty("comment_id");
+        expect(comment).hasOwnProperty("article_id");
+        expect(comment).hasOwnProperty("body");
+        expect(comment).hasOwnProperty("votes");
+        expect(comment).hasOwnProperty("author");
+        expect(comment).hasOwnProperty("created_at");
+
+        expect(comment.body).toEqual("Placeholder comment <--");
+        expect(comment.author).toEqual("butter_bridge");
+        // expect(body.article.hasOwnProperty("article_id")).toEqual(true);
       });
   });
 });
