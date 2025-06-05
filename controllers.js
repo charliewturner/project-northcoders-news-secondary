@@ -4,6 +4,7 @@ const {
   selectAllUsers,
   selectArticleById,
   insertCommentByArticleId,
+  updateArticleVotes,
 } = require("./models");
 
 exports.getAllTopics = (request, response) => {
@@ -57,7 +58,17 @@ exports.postCommentByArticleId = (request, response, next) => {
     });
 };
 
-exports.patchArticleVotes = () => {};
+exports.patchArticleVotes = (request, response, next) => {
+  const { article_id } = request.params;
+  const { inc_votes } = request.body;
+
+  updateArticleVotes(article_id, inc_votes)
+    .then((updatedArticle) => [response.status(200).send(updatedArticle)])
+    .catch((err) => {
+      console.log(err);
+      next(err);
+    });
+};
 
 exports.getAllUsers = (request, response) => {
   selectAllUsers()

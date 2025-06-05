@@ -139,7 +139,7 @@ describe.skip("PATCH /api/articles/:article_id", () => {
     };
 
     return request(app)
-      .patch("/api/articles/3/comments")
+      .patch("/api/articles/3")
       .send(votes)
       .expect(200)
       .then(({ body }) => {
