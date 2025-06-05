@@ -25,7 +25,7 @@
     }
   },
   "GET /api/articles/:article_id": {
-    "description": "serves an array of articles with the specified article_id",
+    "description": "serves an article with the specified article_id",
     "exampleResponse": {
       "articles": [
         {
@@ -74,6 +74,12 @@
           "comment_count": 6
         }
       ]
+    }
+  },
+  "DELETE /api/comments/:comment_id": {
+    "description": "deletes the specified comment",
+    "exampleResponse": {
+      "status": 204
     }
   }
 }
