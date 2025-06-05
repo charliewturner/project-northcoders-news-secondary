@@ -41,3 +41,5 @@ exports.insertCommentByArticleId = (article_id, { username, body }) => {
     )
     .then(({ rows }) => rows[0]);
 };
+
+exports.updateArticleVotes = (article_id, inc_votes) => {};

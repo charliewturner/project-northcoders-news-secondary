@@ -57,6 +57,8 @@ exports.postCommentByArticleId = (request, response, next) => {
     });
 };
 
+exports.patchArticleVotes = () => {};
+
 exports.getAllUsers = (request, response) => {
   selectAllUsers()
     .then((users) => {

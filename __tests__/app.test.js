@@ -104,7 +104,7 @@ describe("GET /api/users", () => {
   });
 });
 
-describe.only("POST /api/articles/:article_id/comments", () => {
+describe("POST /api/articles/:article_id/comments", () => {
   test("201: Adds a comment to the specified article with the correct author/username", () => {
     const newComment = {
       username: "butter_bridge",
@@ -117,8 +117,7 @@ describe.only("POST /api/articles/:article_id/comments", () => {
       .expect(201)
       .then(({ body }) => {
         const { comment } = body;
-        console.log(comment);
-
+        console.log(body);
         expect(comment).hasOwnProperty("comment_id");
         expect(comment).hasOwnProperty("article_id");
         expect(comment).hasOwnProperty("body");
@@ -129,6 +128,24 @@ describe.only("POST /api/articles/:article_id/comments", () => {
         expect(comment.body).toEqual("Placeholder comment <--");
         expect(comment.author).toEqual("butter_bridge");
         // expect(body.article.hasOwnProperty("article_id")).toEqual(true);
+      });
+  });
+});
+
+describe.skip("PATCH /api/articles/:article_id", () => {
+  test("Accepts an object containing voting data. The data updates the votes key on the specified article", () => {
+    const votes = {
+      inc_votes: 38,
+    };
+
+    return request(app)
+      .post("/api/articles/3/comments")
+      .send(votes)
+      .expect(201)
+      .then(({ body }) => {
+        const { comment } = body;
+
+        expect(comment).hasOwnProperty("comment_id");
       });
   });
 });
