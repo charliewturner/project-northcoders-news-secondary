@@ -132,7 +132,7 @@ describe("POST /api/articles/:article_id/comments", () => {
   });
 });
 
-describe.skip("PATCH /api/articles/:article_id", () => {
+describe("PATCH /api/articles/:article_id", () => {
   test("Accepts an object containing voting data. The data updates the votes key on the specified article", () => {
     const votes = {
       inc_votes: 38,
@@ -140,12 +140,13 @@ describe.skip("PATCH /api/articles/:article_id", () => {
 
     return request(app)
       .patch("/api/articles/3")
-      .send(votes)
+      .send({
+        inc_votes: 38,
+      })
       .expect(200)
       .then(({ body }) => {
-        const { comment } = body;
-
-        expect(comment).hasOwnProperty("comment_id");
+        console.log(body);
+        expect(body.votes).toBe(38);
       });
   });
 });

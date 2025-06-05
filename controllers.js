@@ -63,7 +63,9 @@ exports.patchArticleVotes = (request, response, next) => {
   const { inc_votes } = request.body;
 
   updateArticleVotes(article_id, inc_votes)
-    .then((updatedArticle) => [response.status(200).send(updatedArticle)])
+    .then((updatedArticle) => {
+      response.status(200).send(updatedArticle);
+    })
     .catch((err) => {
       console.log(err);
       next(err);
