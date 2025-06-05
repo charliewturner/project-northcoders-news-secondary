@@ -43,17 +43,17 @@ exports.getArticleById = (request, response) => {
     });
 };
 
-exports.postCommentByArticleId = (request, response) => {
+exports.postCommentByArticleId = (request, response, next) => {
   const { article_id } = request.params;
-  const newComment = {request.data}
+  const newComment = request.data;
 
   insertCommentByArticleId(article_id, newComment)
-    .then((article) => {
-      response.status(200).send({ article: comments });
+    .then((comment) => {
+      response.status(201).send({ comment });
     })
     .catch((err) => {
       console.log(err);
-      response.status(500).send({ error: "Internal server error" });
+      next(err);
     });
 };
 

@@ -87,6 +87,7 @@ describe("GET /api/articles/:article_id", () => {
       });
   });
 });
+
 describe("GET /api/users", () => {
   test("200: Responds with an object containing an array of users", () => {
     return request(app)
@@ -100,6 +101,27 @@ describe("GET /api/users", () => {
           expect(article.hasOwnProperty("name")).toEqual(true);
           expect(article.hasOwnProperty("avatar_url")).toEqual(true);
         });
+      });
+  });
+});
+
+describe("POST /api/articles/:article_id/comments", () => {
+  test("201: Adds a comment to the specified article with the correct author/username", () => {
+    return request(app)
+      .get("/api/articles/3/comments")
+      .expect(200)
+      .then(({ body }) => {
+        console.log(body);
+        expect(Object.keys(body)).toEqual(["article"]);
+
+        expect(body.article.hasOwnProperty("article_id")).toEqual(true);
+        expect(body.article.hasOwnProperty("title")).toEqual(true);
+        expect(body.article.hasOwnProperty("topic")).toEqual(true);
+        expect(body.article.hasOwnProperty("author")).toEqual(true);
+        expect(body.article.hasOwnProperty("body")).toEqual(true);
+        expect(body.article.hasOwnProperty("created_at")).toEqual(true);
+        expect(body.article.hasOwnProperty("votes")).toEqual(true);
+        expect(body.article.hasOwnProperty("article_img_url")).toEqual(true);
       });
   });
 });
