@@ -8,7 +8,6 @@ exports.selectAllTopics = () => {
 };
 
 exports.selectAllArticles = (sort_by = "created_at", order = "desc") => {
-  //determine array of valid queries
   const validSortBy = [
     "article_id",
     "title",
@@ -19,13 +18,25 @@ exports.selectAllArticles = (sort_by = "created_at", order = "desc") => {
     "votes",
     "comment_count",
   ];
-  //determine array containing asc/desc order
-  const validOrder = ["desc", "asc"];
-  //write logic returning a promise rejection if either are invalid
 
-  return db.query("SELECT * FROM articles").then((data) => {
-    return data.rows;
+  const validOrder = ["desc", "asc"];
+
+  if (!validSortBy.includes(sort_by)) {
+    return Promise.reject({ status: 400, msg: "Invalid sort_by query" });
+  }
+  if (!order.includes(order)) {
+    return Promise.reject({ status: 400, msg: "Invalid order query" });
+  }
+
+  const queryString = ``;
+
+  return db.query(queryString).then(({ rows }) => {
+    return rows;
   });
+
+  // return db.query("SELECT * FROM articles").then((data) => {
+  //   return data.rows;
+  // });
 };
 
 exports.selectArticleById = (article_id) => {
