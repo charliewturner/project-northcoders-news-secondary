@@ -111,7 +111,6 @@ describe("GET /api/articles", () => {
       .get("/api/articles?topic=notarealtopic")
       .expect(404)
       .then(({ body }) => {
-        console.log(body);
         expect(body).toEqual({ status: 404, msg: "Topic not found" });
       });
   });
@@ -141,6 +140,17 @@ describe("GET /api/articles/:article_id", () => {
         expect(body.article.hasOwnProperty("created_at")).toEqual(true);
         expect(body.article.hasOwnProperty("votes")).toEqual(true);
         expect(body.article.hasOwnProperty("article_img_url")).toEqual(true);
+      });
+  });
+  test("200: Responds with an object including a comment_count key", () => {
+    return request(app)
+      .get("/api/articles/3")
+      .expect(200)
+      .then(({ body }) => {
+        console.log(body);
+        expect(Object.keys(body)).toEqual(["article"]);
+
+        expect(body.article.hasOwnProperty("comment_count")).toEqual(true);
       });
   });
 });

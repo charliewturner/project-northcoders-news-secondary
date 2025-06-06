@@ -57,14 +57,27 @@ exports.selectAllArticles = (sort_by = "created_at", order = "desc", topic) => {
 };
 
 exports.selectArticleById = (article_id) => {
-  return db
-    .query("SELECT * FROM articles WHERE article_id = $1", [article_id])
-    .then(({ rows }) => {
-      if (rows.length === 0) {
-        return Promise.reject({ status: 404, msg: "Article not found" });
-      }
-      return rows[0];
-    });
+  const queryString = `SELECT articles.*,
+  COUNT (comments.comment_id)::INT AS comment_count
+  FROM articles
+  LEFT JOIN comments ON comments.article_id = articles.article_id
+  WHERE articles.article_id = $1
+  GROUP BY articles.article_id`;
+
+  return db.query(queryString, [article_id]).then(({ rows }) => {
+    if (rows.length === 0) {
+      return Promise.reject({ status: 404, msg: "Topic not found" });
+    }
+    return rows[0];
+  });
+  // return db
+  //   .query("SELECT * FROM articles WHERE article_id = $1", [article_id])
+  //   .then(({ rows }) => {
+  //     if (rows.length === 0) {
+  //       return Promise.reject({ status: 404, msg: "Article not found" });
+  //     }
+  //     return rows[0];
+  //   });
 };
 
 exports.selectAllUsers = () => {
