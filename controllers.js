@@ -20,9 +20,9 @@ exports.getAllTopics = (request, response) => {
 };
 
 exports.getAllArticles = (request, response, next) => {
-  const { sort_by, order } = request.query;
+  const { sort_by, order, topic } = request.query;
 
-  selectAllArticles(sort_by, order)
+  selectAllArticles(sort_by, order, topic)
     .then((articles) => {
       response.status(200).send({ articles });
     })

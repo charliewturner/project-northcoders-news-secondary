@@ -85,12 +85,34 @@ describe("GET /api/articles", () => {
   });
   test("200: Returns the articles filtered by a specific topic", () => {
     return request(app)
+      .get("/api/articles?topic=cats")
+      .expect(200)
+      .then(({ body }) => {
+        const { articles } = body;
+        expect(Array.isArray(articles)).toEqual(true);
+
+        articles.forEach((article) => {
+          expect(article.topic).toBe("cats");
+        });
+      });
+  });
+  test("200: Returns the an empty array of articles when sent a valid topic with no articles", () => {
+    return request(app)
       .get("/api/articles?topic=paper")
       .expect(200)
       .then(({ body }) => {
         const { articles } = body;
-        console.log(articles);
         expect(Array.isArray(articles)).toEqual(true);
+        expect(articles).toEqual([]);
+      });
+  });
+  test("404: Returns an error when passed an invalid topic", () => {
+    return request(app)
+      .get("/api/articles?topic=notarealtopic")
+      .expect(404)
+      .then(({ body }) => {
+        console.log(body);
+        expect(body).toEqual({ status: 404, msg: "Topic not found" });
       });
   });
   test("400: Responds with an error when attempting to use invalid queries", () => {

@@ -45,7 +45,7 @@ exports.selectAllArticles = (sort_by = "created_at", order = "desc", topic) => {
     if (topic && rows.length === 0) {
       return db
         .query(`SELECT * FROM topics WHERE slug = $1`, [topic])
-        .then((rows) => {
+        .then(({ rows }) => {
           if (rows.length === 0) {
             return Promise.reject({ status: 404, msg: "Topic not found" });
           } else {
@@ -54,10 +54,6 @@ exports.selectAllArticles = (sort_by = "created_at", order = "desc", topic) => {
         });
     } else return rows;
   });
-
-  // return db.query("SELECT * FROM articles").then((data) => {
-  //   return data.rows;
-  // });
 };
 
 exports.selectArticleById = (article_id) => {
