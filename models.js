@@ -28,7 +28,7 @@ exports.selectAllArticles = (sort_by = "created_at", order = "desc") => {
     return Promise.reject({ status: 400, msg: "Invalid order query" });
   }
 
-  const queryString = ``;
+  const queryString = `SELECT * FROM articles`;
 
   return db.query(queryString).then(({ rows }) => {
     return rows;

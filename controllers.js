@@ -20,17 +20,28 @@ exports.getAllTopics = (request, response) => {
 };
 
 exports.getAllArticles = (request, response) => {
-  selectAllArticles()
+  const { sort_by, order } = request.query;
+
+  selectAllArticles(sort_by, order)
     .then((articles) => {
-      const formattedArticles = articles
-        .map(({ body, ...rest }) => rest)
-        .sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
-      response.status(200).send({ articles: formattedArticles });
+      response.status(200).send({ articles });
     })
     .catch((err) => {
       console.log(err);
       response.status(500).send({ error: "Internal server error" });
     });
+
+  //   selectAllArticles(sort_by, order)
+  //     .then((articles) => {
+  //       const formattedArticles = articles
+  //         .map(({ body, ...rest }) => rest)
+  //         .sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+  //       response.status(200).send({ articles: formattedArticles });
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //       response.status(500).send({ error: "Internal server error" });
+  //     });
 };
 
 exports.getArticleById = (request, response) => {
