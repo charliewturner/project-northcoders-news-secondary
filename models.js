@@ -7,7 +7,7 @@ exports.selectAllTopics = () => {
   });
 };
 
-exports.selectAllArticles = (sort_by = "created_at", order = "desc") => {
+exports.selectAllArticles = (sort_by = "created_at", order = "desc", topic) => {
   const validSortBy = [
     "article_id",
     "title",
@@ -31,11 +31,28 @@ exports.selectAllArticles = (sort_by = "created_at", order = "desc") => {
     return Promise.reject({ status: 400, msg: "Invalid order query" });
   }
 
-  const queryString = `SELECT articles.article_id, articles.title, articles.topic, articles.author, articles.created_at, articles.votes, articles.article_img_url FROM articles
-  ORDER BY ${sort_by} ${order}`;
+  let queryString = `SELECT articles.article_id, articles.title, articles.topic, articles.author, articles.created_at, articles.votes, articles.article_img_url FROM articles `;
 
-  return db.query(queryString).then(({ rows }) => {
-    return rows;
+  const queryValues = [];
+  if (topic) {
+    queryString += `WHERE articles.topic = $1 `;
+    queryValues.push(topic);
+  }
+
+  queryString += `ORDER BY ${sort_by} ${order}`;
+
+  return db.query(queryString, queryValues).then(({ rows }) => {
+    if (topic && rows.length === 0) {
+      return db
+        .query(`SELECT * FROM topics WHERE slug = $1`, [topic])
+        .then((rows) => {
+          if (rows.length === 0) {
+            return Promise.reject({ status: 404, msg: "Topic not found" });
+          } else {
+            return [];
+          }
+        });
+    } else return rows;
   });
 
   // return db.query("SELECT * FROM articles").then((data) => {

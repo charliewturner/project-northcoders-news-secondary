@@ -36,7 +36,7 @@ describe("GET /api/topics", () => {
       .then(({ body }) => {
         expect(Array.isArray(body.topics)).toEqual(true);
         expect(Object.keys(body)).toEqual(["topics"]);
-
+        // console.log(body.topics);
         body.topics.forEach((topic) => {
           expect(topic.hasOwnProperty("slug")).toEqual(true);
           expect(topic.hasOwnProperty("description")).toEqual(true);
@@ -81,6 +81,16 @@ describe("GET /api/articles", () => {
       .then(({ body }) => {
         const { articles } = body;
         expect(articles).toBeSortedBy("title", { ascending: true });
+      });
+  });
+  test("200: Returns the articles filtered by a specific topic", () => {
+    return request(app)
+      .get("/api/articles?topic=paper")
+      .expect(200)
+      .then(({ body }) => {
+        const { articles } = body;
+        console.log(articles);
+        expect(Array.isArray(articles)).toEqual(true);
       });
   });
   test("400: Responds with an error when attempting to use invalid queries", () => {
