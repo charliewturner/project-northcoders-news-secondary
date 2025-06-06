@@ -24,11 +24,12 @@ exports.selectAllArticles = (sort_by = "created_at", order = "desc") => {
   if (!validSortBy.includes(sort_by)) {
     return Promise.reject({ status: 400, msg: "Invalid sort_by query" });
   }
-  if (!order.includes(order)) {
+  if (!validOrder.includes(order)) {
     return Promise.reject({ status: 400, msg: "Invalid order query" });
   }
 
-  const queryString = `SELECT * FROM articles`;
+  const queryString = `SELECT articles.article_id, articles.title, articles.topic, articles.author, articles.created_at, articles.votes, articles.article_img_url FROM articles
+  ORDER BY ${sort_by} ${order}`;
 
   return db.query(queryString).then(({ rows }) => {
     return rows;

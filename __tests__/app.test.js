@@ -65,6 +65,16 @@ describe("GET /api/articles", () => {
         });
       });
   });
+  test("200: Responds with articles sorted in descending created_by order by default", () => {
+    return request(app)
+      .get("/api/articles")
+      .expect(200)
+      .then(({ body }) => {
+        console.log(body);
+        const { articles } = body;
+        expect(articles).toBeSortedBy("created_at", { descending: true });
+      });
+  });
 });
 
 describe("GET /api/articles/:article_id", () => {
