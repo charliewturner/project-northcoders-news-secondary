@@ -28,4 +28,14 @@ app.patch("/api/articles/:article_id", patchArticleVotes);
 
 app.delete("/api/comments/:comment_id", deleteCommentById);
 
+app.use((err, request, response, next) => {
+  if (err.status && err.msg) {
+    response.status(err.status).send({ status: err.status, msg: err.msg });
+  } else {
+    console.log(err);
+    this.response
+      .status(500)
+      .send({ status: 500, msg: "Internal Server Error" });
+  }
+});
 module.exports = app;

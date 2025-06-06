@@ -70,9 +70,27 @@ describe("GET /api/articles", () => {
       .get("/api/articles")
       .expect(200)
       .then(({ body }) => {
-        console.log(body);
         const { articles } = body;
         expect(articles).toBeSortedBy("created_at", { descending: true });
+      });
+  });
+  test("200: Responds with articles sorted by the specified sort_by, in the specified order", () => {
+    return request(app)
+      .get("/api/articles?sort_by=title&order=asc")
+      .expect(200)
+      .then(({ body }) => {
+        const { articles } = body;
+        expect(articles).toBeSortedBy("title", { ascending: true });
+      });
+  });
+  test("400: Responds with an error when attempting to use invalid queries", () => {
+    return request(app)
+      .get("/api/articles?sort_by=director&order=asc")
+      .expect(400)
+      .then(({ body }) => {
+        console.log(body);
+
+        expect(body).toEqual({ status: 400, msg: "Invalid sort_by query" });
       });
   });
 });

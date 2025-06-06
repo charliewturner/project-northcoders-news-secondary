@@ -21,6 +21,9 @@ exports.selectAllArticles = (sort_by = "created_at", order = "desc") => {
 
   const validOrder = ["desc", "asc"];
 
+  sort_by = sort_by.toLowerCase();
+  order = order.toLowerCase();
+
   if (!validSortBy.includes(sort_by)) {
     return Promise.reject({ status: 400, msg: "Invalid sort_by query" });
   }
