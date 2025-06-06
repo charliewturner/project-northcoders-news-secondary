@@ -7,7 +7,22 @@ exports.selectAllTopics = () => {
   });
 };
 
-exports.selectAllArticles = () => {
+exports.selectAllArticles = (sort_by = "created_at", order = "desc") => {
+  //determine array of valid queries
+  const validSortBy = [
+    "article_id",
+    "title",
+    "topic",
+    "author",
+    "body",
+    "created_at",
+    "votes",
+    "comment_count",
+  ];
+  //determine array containing asc/desc order
+  const validOrder = ["desc", "asc"];
+  //write logic returning a promise rejection if either are invalid
+
   return db.query("SELECT * FROM articles").then((data) => {
     return data.rows;
   });

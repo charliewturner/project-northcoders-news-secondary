@@ -177,14 +177,6 @@ describe("PATCH /api/articles/:article_id", () => {
 
 describe("DELETE /api/comments/:comment_id", () => {
   test("Deletes the comment specified by the comment_id passed in", () => {
-    // return request(app)
-    //   .delete("/api/comments/1")
-    //   .send()
-    //   .expect(204)
-    //   .then((response) => {
-    //     console.log(response);
-    //   });
-
     return db
       .query("SELECT comment_id FROM comments LIMIT 1")
       .then(({ rows }) => {
