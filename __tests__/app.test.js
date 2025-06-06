@@ -88,8 +88,6 @@ describe("GET /api/articles", () => {
       .get("/api/articles?sort_by=director&order=asc")
       .expect(400)
       .then(({ body }) => {
-        console.log(body);
-
         expect(body).toEqual({ status: 400, msg: "Invalid sort_by query" });
       });
   });
