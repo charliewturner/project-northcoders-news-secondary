@@ -124,7 +124,7 @@ describe("GET /api/articles", () => {
   });
 });
 
-describe("GET /api/articles/:article_id", () => {
+describe.only("GET /api/articles/:article_id", () => {
   test("200: Responds with an object with the key of article and the value of an article object", () => {
     return request(app)
       .get("/api/articles/3")
@@ -147,9 +147,7 @@ describe("GET /api/articles/:article_id", () => {
       .get("/api/articles/3")
       .expect(200)
       .then(({ body }) => {
-        console.log(body);
         expect(Object.keys(body)).toEqual(["article"]);
-
         expect(body.article.hasOwnProperty("comment_count")).toEqual(true);
       });
   });
