@@ -5,6 +5,11 @@ body * {
   border-width: 1px;
   margin: 6px;
   padding: 5px;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+}
+
+.navigation-bar {
+  flex-direction: row;
 }
 
 .request-body {
