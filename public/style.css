@@ -1,0 +1,16 @@
+body * {
+  display: flex;
+  flex-direction: column;
+  border-style: solid;
+  border-width: 1px;
+  margin: 6px;
+  padding: 5px;
+}
+
+.request-body {
+  background-color: rgba(189, 189, 189, 0.507);
+}
+
+.response-body {
+  background-color: rgba(189, 189, 189, 0.507);
+}
