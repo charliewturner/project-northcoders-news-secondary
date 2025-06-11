@@ -13,9 +13,9 @@ body * {
 }
 
 .request-body {
-  background-color: rgba(189, 189, 189, 0.507);
+  background-color: rgba(189, 189, 189, 0.315);
 }
 
 .response-body {
-  background-color: rgba(189, 189, 189, 0.507);
+  background-color: rgba(189, 189, 189, 0.664);
 }
