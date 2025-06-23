@@ -17,6 +17,10 @@ app.use(cors());
 
 app.use(express.json());
 
+app.get("/", (request, response) => {
+  response.status(200).send({ msg: "API reached successfully" });
+});
+
 app.get("/api", (request, response) => {
   response.status(200).send({ endpoints });
 });
