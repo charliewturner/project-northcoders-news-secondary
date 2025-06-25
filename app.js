@@ -35,7 +35,7 @@ app.get("/api/users", getAllUsers);
 app.post("/api/articles/:article_id/comments", postCommentByArticleId);
 
 app.patch("/api/articles/:article_id", patchArticleVotes);
-app.patch("/api/fix-comments", addArticleIdsToComments);
+// app.patch("/api/fix-comments", addArticleIdsToComments);
 
 app.delete("/api/comments/:comment_id", deleteCommentById);
 

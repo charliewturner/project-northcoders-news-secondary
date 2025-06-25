@@ -10,19 +10,19 @@ const {
   patchCommentsWithArticleIds,
 } = require("./models");
 
-exports.addArticleIdsToComments = (request, response, next) => {
-  console.log("Attemping to patch comments");
-  patchCommentsWithArticleIds()
-    .then(() => {
-      response.status(200).send({
-        msg: "successfully updated comments with relevant article IDs",
-      });
-    })
-    .catch((err) => {
-      console.log("Error attempting to patch comments");
-      next(err);
-    });
-};
+// exports.addArticleIdsToComments = (request, response, next) => {
+//   console.log("Attemping to patch comments");
+//   patchCommentsWithArticleIds()
+//     .then(() => {
+//       response.status(200).send({
+//         msg: "successfully updated comments with relevant article IDs",
+//       });
+//     })
+//     .catch((err) => {
+//       console.log("Error attempting to patch comments");
+//       next(err);
+//     });
+// };
 
 exports.getAllTopics = (request, response) => {
   selectAllTopics()

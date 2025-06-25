@@ -1,31 +1,31 @@
 const db = require("./db/connection.js");
 const { articleData } = require("./db/data/development-data/index.js");
 
-exports.patchCommentsWithArticleIds = async () => {
-  const articles = await db.query("SELECT article_id, title FROM articles;");
-  const comments = await db.query(
-    "SELECT comment_id, article_title FROM comments"
-  );
+// exports.patchCommentsWithArticleIds = async () => {
+//   const articles = await db.query("SELECT article_id, title FROM articles;");
+//   const comments = await db.query(
+//     "SELECT comment_id, article_title FROM comments"
+//   );
 
-  const map = new Map();
+//   const map = new Map();
 
-  for (let article of articles.rows) {
-    map.set(article.title, article.article_id);
-  }
+//   for (let article of articles.rows) {
+//     map.set(article.title, article.article_id);
+//   }
 
-  const updated = comments.rows.map((comment) => {
-    const matchingArticleId = map.get(comment.article_title);
+//   const updated = comments.rows.map((comment) => {
+//     const matchingArticleId = map.get(comment.article_title);
 
-    if (!matchingArticleId) return null;
+//     if (!matchingArticleId) return null;
 
-    return db.query(
-      "UPDATE comments SET article_id = $1 WHERE comment_id = $2",
-      [matchingArticleId, comment.comment_id]
-    );
-  });
+//     return db.query(
+//       "UPDATE comments SET article_id = $1 WHERE comment_id = $2",
+//       [matchingArticleId, comment.comment_id]
+//     );
+//   });
 
-  return Promise.all(updated.filter(Boolean));
-};
+//   return Promise.all(updated.filter(Boolean));
+// };
 
 exports.selectAllTopics = () => {
   return db.query("SELECT * FROM topics").then((data) => {
