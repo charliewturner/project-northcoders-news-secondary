@@ -86,6 +86,17 @@ exports.selectAllUsers = () => {
   });
 };
 
+exports.fetchCommentsByArticleId = (article_id) => {
+  return db
+    .query(
+      "SELECT * FROM comments WHERE article_id = $1 ORDER BY created_at DESC",
+      [article_id]
+    )
+    .then(({ rows }) => {
+      return rows;
+    });
+};
+
 exports.insertCommentByArticleId = (article_id, { username, body }) => {
   if (!username || !body) {
     return Promise.reject({ status: 400, msg: "Missing required field(s)" });

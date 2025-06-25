@@ -6,6 +6,7 @@ const {
   insertCommentByArticleId,
   updateArticleVotes,
   removeCommentById,
+  fetchCommentsByArticleId,
 } = require("./models");
 
 exports.getAllTopics = (request, response) => {
@@ -38,6 +39,16 @@ exports.getArticleById = (request, response) => {
     .then((article) => {
       response.status(200).send({ article });
     })
+    .catch((err) => {
+      console.log(err);
+      response.status(500).send({ error: "Internal server error" });
+    });
+};
+
+exports.getCommentsByArticleId = (request, response) => {
+  const { article_id } = request.params;
+  fetchCommentsByArticleId(article_id)
+    .then((comments) => response.status(200).send({ comments }))
     .catch((err) => {
       console.log(err);
       response.status(500).send({ error: "Internal server error" });
