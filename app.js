@@ -27,9 +27,9 @@ app.get("/api", (request, response) => {
 });
 app.get("/api/topics", getAllTopics);
 app.get("/api/articles", getAllArticles);
+app.get("/api/articles/:article_id/comments", getCommentsByArticleId);
 app.get("/api/articles/:article_id", getArticleById);
 app.get("/api/users", getAllUsers);
-app.get("/api/articles/:article_id/comments", getCommentsByArticleId);
 
 app.post("/api/articles/:article_id/comments", postCommentByArticleId);
 

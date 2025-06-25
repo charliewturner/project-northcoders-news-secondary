@@ -1,6 +1,13 @@
 const db = require("./db/connection.js");
 const { articleData } = require("./db/data/development-data/index.js");
 
+// exports.patchCommentsWithArticleIds = () => {
+//   const articles = await db.query()
+//   const comments = await db.query()
+
+//   return db.query("UPDATE comments SET article_id = $1 WHERE comment_id = $2", [article_id, comment_id])
+// }
+
 exports.selectAllTopics = () => {
   return db.query("SELECT * FROM topics").then((data) => {
     return data.rows;

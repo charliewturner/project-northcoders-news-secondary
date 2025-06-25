@@ -7,7 +7,18 @@ const {
   updateArticleVotes,
   removeCommentById,
   fetchCommentsByArticleId,
+  patchCommentsWithArticleIds,
 } = require("./models");
+
+// exports.addArticleIdsToComments = (request, response, next) => {
+//   patchCommentsWithArticleIds()
+//     .then(() => {
+//       response.status(200).send({
+//         msg: "successfully updated comments with relevant article IDs",
+//       });
+//     })
+//     .catch(next);
+// };
 
 exports.getAllTopics = (request, response) => {
   selectAllTopics()
