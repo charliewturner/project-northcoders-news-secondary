@@ -66,6 +66,11 @@
       }
     }
   },
+
+  "PATCH /api/fix-comments": {
+    "description": "updates comments with their corresponding article_ids",
+    "exampleResponse": {}
+  },
   "PATCH /api/articles/:article_id": {
     "description": "updates the vote key on the specified article",
     "exampleResponse": {
