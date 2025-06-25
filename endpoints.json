@@ -49,6 +49,10 @@
       "avatar_url": "avatar.url"
     }
   },
+  "GET /api/articles/:article_id/comments": {
+    "description": "gets the comments for a given article",
+    "exampleResponse": {}
+  },
   "POST /api/articles/:article_id/comments": {
     "description": "adds a comment to a specified article",
     "exampleResponse": {
