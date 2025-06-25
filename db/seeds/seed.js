@@ -122,11 +122,18 @@ const seed = ({ topicData, userData, articleData, commentData }) => {
       );
       return db.query(updateArticlesTable);
     })
-    .then(() => {
+
+    .then(({ rows: insertedArticles }) => {
+      const articleIds = new Map();
+      insertedArticles.forEach((article) => {
+        articleIds.set(article.title, article.article_id);
+      });
+
       const commentValues = commentData.map((comment) => {
         const convertedComment = convertTimestampToDate(comment);
+        const article_id = articleIds.get(comment.article_title);
         return [
-          convertedComment.article_id,
+          article_id,
           convertedComment.body,
           convertedComment.votes,
           convertedComment.author,
@@ -145,6 +152,7 @@ const seed = ({ topicData, userData, articleData, commentData }) => {
 
       return db.query(updateCommentsTable);
     })
+
     .then(() => {
       if (process.env.NODE_ENV !== "test") {
         console.log("Tables successfully updated!");
