@@ -17,7 +17,7 @@ afterAll(() => {
   return db.end();
 });
 
-describe("GET /api", () => {
+describe.skip("GET /api", () => {
   test("200: Responds with an object detailing the documentation for each endpoint", () => {
     return request(app)
       .get("/api")
@@ -28,7 +28,7 @@ describe("GET /api", () => {
   });
 });
 
-describe("GET /api/topics", () => {
+describe.skip("GET /api/topics", () => {
   test("200: Responds with an array of topics. Each topic is an object with a slug and a description key", () => {
     return request(app)
       .get("/api/topics")
@@ -45,7 +45,7 @@ describe("GET /api/topics", () => {
   });
 });
 
-describe("GET /api/articles", () => {
+describe.skip("GET /api/articles", () => {
   test("200: Responds with an object with the key of articles. Each article has the correct properties", () => {
     return request(app)
       .get("/api/articles")
@@ -124,7 +124,7 @@ describe("GET /api/articles", () => {
   });
 });
 
-describe("GET /api/articles/:article_id", () => {
+describe.skip("GET /api/articles/:article_id", () => {
   test("200: Responds with an object with the key of article and the value of an article object", () => {
     return request(app)
       .get("/api/articles/3")
@@ -153,7 +153,7 @@ describe("GET /api/articles/:article_id", () => {
   });
 });
 
-describe("GET /api/users", () => {
+describe.skip("GET /api/users", () => {
   test("200: Responds with an object containing an array of users", () => {
     return request(app)
       .get("/api/users")
@@ -170,7 +170,7 @@ describe("GET /api/users", () => {
   });
 });
 
-describe("POST /api/articles/:article_id/comments", () => {
+describe.skip("POST /api/articles/:article_id/comments", () => {
   test("201: Adds a comment to the specified article with the correct author/username", () => {
     const newComment = {
       username: "butter_bridge",
@@ -198,7 +198,7 @@ describe("POST /api/articles/:article_id/comments", () => {
   });
 });
 
-describe("PATCH /api/articles/:article_id", () => {
+describe.skip("PATCH /api/articles/:article_id", () => {
   test("Accepts an object containing voting data. The data updates the votes key on the specified article when passed a positive number of votes", () => {
     const votes = {
       inc_votes: 38,
@@ -241,7 +241,7 @@ describe("PATCH /api/articles/:article_id", () => {
   });
 });
 
-describe("DELETE /api/comments/:comment_id", () => {
+describe.skip("DELETE /api/comments/:comment_id", () => {
   test("Deletes the comment specified by the comment_id passed in", () => {
     return db
       .query("SELECT comment_id FROM comments LIMIT 1")

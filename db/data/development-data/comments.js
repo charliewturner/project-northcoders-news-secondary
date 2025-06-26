@@ -1,6 +1,7 @@
 module.exports = [
   {
-    article_title: "The People Tracking Every Touch, Pass And Tackle in the World Cup",
+    article_title:
+      "The People Tracking Every Touch, Pass And Tackle in the World Cup",
     body: "Itaque quisquam est similique et est perspiciatis reprehenderit voluptatem autem. Voluptatem accusantium eius error adipisci quibusdam doloribus.",
     votes: -1,
     author: "tickle122",
@@ -21,7 +22,8 @@ module.exports = [
     created_at: 1600820280000,
   },
   {
-    article_title: "The People Tracking Every Touch, Pass And Tackle in the World Cup",
+    article_title:
+      "The People Tracking Every Touch, Pass And Tackle in the World Cup",
     body: "Rerum voluptatem quam odio facilis quis illo unde. Ex blanditiis optio tenetur sunt. Cumque dolor ducimus et qui officia quasi non illum reiciendis.",
     votes: 4,
     author: "happyamy2016",
@@ -98,7 +100,8 @@ module.exports = [
     created_at: 1597414140000,
   },
   {
-    article_title: "What does Jose Mourinho's handwriting say about his personality?",
+    article_title:
+      "What does Jose Mourinho's handwriting say about his personality?",
     body: "Voluptas enim dolores minima repellendus corporis mollitia omnis. Consectetur vitae quaerat possimus repellendus. Cumque maxime nisi itaque aliquid vel non non.",
     votes: 12,
     author: "jessjelly",
@@ -134,7 +137,8 @@ module.exports = [
     created_at: 1592582580000,
   },
   {
-    article_title: "What does Jose Mourinho's handwriting say about his personality?",
+    article_title:
+      "What does Jose Mourinho's handwriting say about his personality?",
     body: "Libero explicabo aperiam esse quae. Dolores in ipsum vitae incidunt. Magnam ullam nihil voluptas enim veritatis et nobis architecto.",
     votes: 0,
     author: "happyamy2016",
@@ -440,7 +444,8 @@ module.exports = [
     created_at: 1578276900000,
   },
   {
-    article_title: "The Rise Of Thinking Machines: How IBM's Watson Takes On The World",
+    article_title:
+      "The Rise Of Thinking Machines: How IBM's Watson Takes On The World",
     body: "Est pariatur quis ipsa culpa unde temporibus et accusantium rerum. Consequatur in occaecati aut non similique aut quibusdam. Qui sunt magnam iure blanditiis. Et est non enim. Est ab vero dolor.",
     votes: -1,
     author: "jessjelly",
@@ -585,14 +590,16 @@ module.exports = [
     created_at: 1597824480000,
   },
   {
-    article_title: "Game of talents: management lessons from top football coaches",
+    article_title:
+      "Game of talents: management lessons from top football coaches",
     body: "Velit in assumenda quo repudiandae qui eaque. Qui dolor ad iusto optio magnam suscipit.",
     votes: -2,
     author: "weegembump",
     created_at: 1586383260000,
   },
   {
-    article_title: "What does Jose Mourinho's handwriting say about his personality?",
+    article_title:
+      "What does Jose Mourinho's handwriting say about his personality?",
     body: "Modi cum quo maxime sunt quia doloribus consequatur recusandae. Quam temporibus est non dolorem. Rerum dolorem nulla sed nam repellendus doloribus non accusantium. Id beatae est et a.",
     votes: 0,
     author: "grumpy19",
@@ -718,7 +725,8 @@ module.exports = [
     created_at: 1580519400000,
   },
   {
-    article_title: "The Rise Of Thinking Machines: How IBM's Watson Takes On The World",
+    article_title:
+      "The Rise Of Thinking Machines: How IBM's Watson Takes On The World",
     body: "Quia quos adipisci sint expedita voluptatem id ut at accusantium. Et ex itaque recusandae aut quo. Quia quam similique eum quidem iusto. Aspernatur ducimus vitae vel natus doloribus qui id. Excepturi voluptatem qui quia sit qui eveniet voluptatem. Fugit itaque libero quibusdam sunt.",
     votes: 10,
     author: "jessjelly",
@@ -845,7 +853,8 @@ module.exports = [
     created_at: 1579896660000,
   },
   {
-    article_title: "The People Tracking Every Touch, Pass And Tackle in the World Cup",
+    article_title:
+      "The People Tracking Every Touch, Pass And Tackle in the World Cup",
     body: "Praesentium asperiores omnis porro facilis dignissimos sint exercitationem fugit. Error voluptas soluta veniam dicta amet iste. Deleniti assumenda id exercitationem accusantium. Ut sed eum est.",
     votes: 18,
     author: "cooljmessy",
@@ -946,7 +955,8 @@ module.exports = [
     created_at: 1600077660000,
   },
   {
-    article_title: "The Rise Of Thinking Machines: How IBM's Watson Takes On The World",
+    article_title:
+      "The Rise Of Thinking Machines: How IBM's Watson Takes On The World",
     body: "Nam qui vel neque aut. Quas quos nisi. Eum praesentium quasi commodi saepe assumenda sed vel. Nostrum qui magnam aut occaecati exercitationem aut voluptatibus.",
     votes: 7,
     author: "jessjelly",
@@ -1072,7 +1082,8 @@ module.exports = [
     created_at: 1598868540000,
   },
   {
-    article_title: "The Rise Of Thinking Machines: How IBM's Watson Takes On The World",
+    article_title:
+      "The Rise Of Thinking Machines: How IBM's Watson Takes On The World",
     body: "Animi id fuga culpa voluptates sint qui. Nostrum deleniti optio quo quas eveniet excepturi voluptates voluptatem totam. Provident dolores nesciunt dignissimos quisquam laboriosam iusto aut recusandae est.",
     votes: 18,
     author: "grumpy19",
@@ -1142,21 +1153,24 @@ module.exports = [
     created_at: 1585782060000,
   },
   {
-    article_title: "The Rise Of Thinking Machines: How IBM's Watson Takes On The World",
+    article_title:
+      "The Rise Of Thinking Machines: How IBM's Watson Takes On The World",
     body: "Et suscipit maxime sit sunt consequuntur consequatur fugiat molestias. Et quis enim vero.",
     votes: 14,
     author: "grumpy19",
     created_at: 1601752920000,
   },
   {
-    article_title: "What does Jose Mourinho's handwriting say about his personality?",
+    article_title:
+      "What does Jose Mourinho's handwriting say about his personality?",
     body: "Beatae labore et voluptatem aut iure. Labore cum tempore eaque cum. Doloribus omnis neque nihil odio ipsum dolore voluptates.",
     votes: 11,
     author: "grumpy19",
     created_at: 1587607800000,
   },
   {
-    article_title: "Game of talents: management lessons from top football coaches",
+    article_title:
+      "Game of talents: management lessons from top football coaches",
     body: "Qui aut nihil temporibus enim. Consequatur officiis quia. Sit vero eum.",
     votes: 12,
     author: "cooljmessy",
@@ -1305,7 +1319,8 @@ module.exports = [
     created_at: 1582935780000,
   },
   {
-    article_title: "The People Tracking Every Touch, Pass And Tackle in the World Cup",
+    article_title:
+      "The People Tracking Every Touch, Pass And Tackle in the World Cup",
     body: "Impedit iure ut est qui et qui sed. Nobis sint voluptatem asperiores. Ad sequi repellendus.",
     votes: 14,
     author: "jessjelly",
@@ -1347,7 +1362,8 @@ module.exports = [
     created_at: 1596665040000,
   },
   {
-    article_title: "The Rise Of Thinking Machines: How IBM's Watson Takes On The World",
+    article_title:
+      "The Rise Of Thinking Machines: How IBM's Watson Takes On The World",
     body: "Ex beatae harum qui. Et minima qui. Molestiae quod commodi tenetur corporis id necessitatibus eum nobis. Ut dolorem eveniet. Ex dolor qui. Officia reprehenderit ducimus iure placeat.",
     votes: 12,
     author: "weegembump",
@@ -1389,7 +1405,8 @@ module.exports = [
     created_at: 1601544000000,
   },
   {
-    article_title: "The People Tracking Every Touch, Pass And Tackle in the World Cup",
+    article_title:
+      "The People Tracking Every Touch, Pass And Tackle in the World Cup",
     body: "Autem similique commodi et vel autem minima quos quam. Animi et dignissimos recusandae repellat officia excepturi sunt. Occaecati vel excepturi qui voluptatem et illo hic. Voluptas itaque et. Hic fugiat tempore soluta sequi nisi perspiciatis rerum perspiciatis. Corrupti accusantium ullam corporis facilis ea omnis enim.",
     votes: 11,
     author: "tickle122",
@@ -1447,7 +1464,8 @@ module.exports = [
     created_at: 1596956400000,
   },
   {
-    article_title: "Sweet potato & butternut squash soup with lemon & garlic toast",
+    article_title:
+      "Sweet potato & butternut squash soup with lemon & garlic toast",
     body: "Voluptatum expedita et nobis non quisquam corrupti voluptas sed delectus. Sed dolorem itaque eius velit soluta quia deleniti. Dolorem rerum consequatur vitae. Ea cupiditate voluptate.",
     votes: 5,
     author: "weegembump",
@@ -1475,7 +1493,8 @@ module.exports = [
     created_at: 1578729600000,
   },
   {
-    article_title: "The People Tracking Every Touch, Pass And Tackle in the World Cup",
+    article_title:
+      "The People Tracking Every Touch, Pass And Tackle in the World Cup",
     body: "Voluptatem esse dolores alias harum. Voluptatem dolore dicta.",
     votes: 3,
     author: "tickle122",
@@ -1496,7 +1515,8 @@ module.exports = [
     created_at: 1598466240000,
   },
   {
-    article_title: "Sweet potato & butternut squash soup with lemon & garlic toast",
+    article_title:
+      "Sweet potato & butternut squash soup with lemon & garlic toast",
     body: "Consectetur ut tempore perferendis ex qui et. Ad sunt ipsa quisquam iusto consequuntur. Dolore et reiciendis maxime et laborum similique ullam velit. Hic unde quod sunt. Ut ut at repellendus.",
     votes: 0,
     author: "grumpy19",
@@ -1566,7 +1586,8 @@ module.exports = [
     created_at: 1600427280000,
   },
   {
-    article_title: "Game of talents: management lessons from top football coaches",
+    article_title:
+      "Game of talents: management lessons from top football coaches",
     body: "Quos nobis distinctio veniam voluptas et ut id quos. Et atque facilis accusamus sapiente tempora vel. Itaque dolor recusandae dignissimos cupiditate labore quibusdam. Dolores eos vero molestiae cupiditate quis. Et fugit ea eos. Odit voluptates dolore sit fugit.",
     votes: 5,
     author: "jessjelly",
@@ -1659,7 +1680,8 @@ module.exports = [
     created_at: 1589134260000,
   },
   {
-    article_title: "Game of talents: management lessons from top football coaches",
+    article_title:
+      "Game of talents: management lessons from top football coaches",
     body: "Beatae aut et est optio ut magni hic. Unde reprehenderit quam reiciendis laborum possimus distinctio veritatis. Nostrum corrupti minus voluptatem veritatis quis aspernatur totam. Atque nisi et labore repellat officia quia pariatur cumque.",
     votes: 4,
     author: "jessjelly",
@@ -1674,7 +1696,8 @@ module.exports = [
     created_at: 1587752160000,
   },
   {
-    article_title: "The People Tracking Every Touch, Pass And Tackle in the World Cup",
+    article_title:
+      "The People Tracking Every Touch, Pass And Tackle in the World Cup",
     body: "Deleniti mollitia est assumenda. Totam veniam velit similique nesciunt minima. Autem quibusdam harum voluptate. Et distinctio nemo quia. Beatae libero quaerat amet libero. Corrupti ducimus qui recusandae nobis sunt perspiciatis minima debitis et.",
     votes: 2,
     author: "grumpy19",
@@ -1739,14 +1762,16 @@ module.exports = [
     created_at: 1605017340000,
   },
   {
-    article_title: "Sweet potato & butternut squash soup with lemon & garlic toast",
+    article_title:
+      "Sweet potato & butternut squash soup with lemon & garlic toast",
     body: "Nesciunt iusto sed illo explicabo. Molestias dolorem ut dignissimos est sint quia optio praesentium. Dignissimos non itaque. Hic necessitatibus minus modi laudantium iure voluptatibus. Et recusandae harum voluptates expedita deserunt deleniti et. Ratione minima ullam dignissimos aliquam.",
     votes: 20,
     author: "happyamy2016",
     created_at: 1583258400000,
   },
   {
-    article_title: "What does Jose Mourinho's handwriting say about his personality?",
+    article_title:
+      "What does Jose Mourinho's handwriting say about his personality?",
     body: "Dolor rem saepe voluptas impedit et. Corrupti qui quod commodi. Quos blanditiis placeat.",
     votes: -1,
     author: "grumpy19",
@@ -1852,7 +1877,8 @@ module.exports = [
     created_at: 1603393200000,
   },
   {
-    article_title: "Sweet potato & butternut squash soup with lemon & garlic toast",
+    article_title:
+      "Sweet potato & butternut squash soup with lemon & garlic toast",
     body: "Quia adipisci veritatis quia voluptate aperiam dolor. Consequatur ipsam doloremque. Et reiciendis et in ut necessitatibus et voluptatem. Et voluptatem ut. Officiis eos exercitationem sequi temporibus debitis nemo sit.",
     votes: 14,
     author: "grumpy19",
@@ -1971,7 +1997,8 @@ module.exports = [
     created_at: 1601697660000,
   },
   {
-    article_title: "Game of talents: management lessons from top football coaches",
+    article_title:
+      "Game of talents: management lessons from top football coaches",
     body: "Dolor architecto quaerat rerum dolore qui et sunt assumenda quas. Inventore vero eius odio ipsa repudiandae atque dignissimos. Consequuntur et praesentium qui ut soluta suscipit ut tempora. Ratione blanditiis aut molestiae molestiae ut. Corporis nam consequatur sapiente dicta quae repudiandae id ut sint. Reprehenderit omnis magnam.",
     votes: 12,
     author: "grumpy19",
@@ -2028,7 +2055,8 @@ module.exports = [
     created_at: 1587867240000,
   },
   {
-    article_title: "The People Tracking Every Touch, Pass And Tackle in the World Cup",
+    article_title:
+      "The People Tracking Every Touch, Pass And Tackle in the World Cup",
     body: "Voluptas sed qui nesciunt a non. Amet provident assumenda aut. Sunt et in. Eum velit nemo exercitationem veniam qui corporis qui blanditiis ut. Ullam architecto dolor iusto ratione. Officia quibusdam vero ut.",
     votes: 8,
     author: "tickle122",
@@ -2063,7 +2091,8 @@ module.exports = [
     created_at: 1592788320000,
   },
   {
-    article_title: "What does Jose Mourinho's handwriting say about his personality?",
+    article_title:
+      "What does Jose Mourinho's handwriting say about his personality?",
     body: "Nihil est deleniti voluptas et soluta. Ea iure error aperiam facere reprehenderit autem corrupti. Reprehenderit labore accusamus esse magni voluptatibus esse minus. Repellat veritatis illum natus. Aut aut dolor omnis est magni sint. Ipsum architecto exercitationem numquam consequatur sit.",
     votes: 0,
     author: "cooljmessy",
