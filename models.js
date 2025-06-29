@@ -1,32 +1,6 @@
 const db = require("./db/connection.js");
 const { articleData } = require("./db/data/development-data/index.js");
 
-// exports.patchCommentsWithArticleIds = async () => {
-//   const articles = await db.query("SELECT article_id, title FROM articles;");
-//   const comments = await db.query(
-//     "SELECT comment_id, article_title FROM comments"
-//   );
-
-//   const map = new Map();
-
-//   for (let article of articles.rows) {
-//     map.set(article.title, article.article_id);
-//   }
-
-//   const updated = comments.rows.map((comment) => {
-//     const matchingArticleId = map.get(comment.article_title);
-
-//     if (!matchingArticleId) return null;
-
-//     return db.query(
-//       "UPDATE comments SET article_id = $1 WHERE comment_id = $2",
-//       [matchingArticleId, comment.comment_id]
-//     );
-//   });
-
-//   return Promise.all(updated.filter(Boolean));
-// };
-
 exports.selectAllTopics = () => {
   return db.query("SELECT * FROM topics").then((data) => {
     return data.rows;
@@ -57,7 +31,7 @@ exports.selectAllArticles = (sort_by = "created_at", order = "desc", topic) => {
     return Promise.reject({ status: 400, msg: "Invalid order query" });
   }
 
-  let queryString = `SELECT articles.article_id, articles.title, articles.topic, articles.author, articles.body, articles.created_at, articles.votes, articles.article_img_url FROM articles `;
+  let queryString = `SELECT articles.article_id, articles.title, articles.topic, articles.author, articles.body, articles.created_at, articles.votes, articles.article_img_url, COUNT (comments.comment_id)::INT AS comment_count FROM articles LEFT JOIN comments ON comments.article_id = articles.article_id `;
 
   const queryValues = [];
   if (topic) {
@@ -65,7 +39,9 @@ exports.selectAllArticles = (sort_by = "created_at", order = "desc", topic) => {
     queryValues.push(topic);
   }
 
-  queryString += `ORDER BY ${sort_by} ${order}`;
+  queryString += `GROUP BY articles.article_id ORDER BY ${
+    sort_by === "comment_count" ? "comment_count" : `articles.${sort_by}`
+  } ${order};`;
 
   return db.query(queryString, queryValues).then(({ rows }) => {
     if (topic && rows.length === 0) {
@@ -96,14 +72,6 @@ exports.selectArticleById = (article_id) => {
     }
     return rows[0];
   });
-  // return db
-  //   .query("SELECT * FROM articles WHERE article_id = $1", [article_id])
-  //   .then(({ rows }) => {
-  //     if (rows.length === 0) {
-  //       return Promise.reject({ status: 404, msg: "Article not found" });
-  //     }
-  //     return rows[0];
-  //   });
 };
 
 exports.selectAllUsers = () => {
