@@ -7,7 +7,9 @@ const {
   updateArticleVotes,
   removeCommentById,
   fetchCommentsByArticleId,
+  selectUserWithPassword,
 } = require("./models");
+const bcrypt = require("bcrypt");
 
 exports.getAllTopics = (request, response) => {
   selectAllTopics()
@@ -98,6 +100,37 @@ exports.deleteCommentById = (request, response, next) => {
   removeCommentById(comment_id)
     .then(() => {
       response.status(204).send();
+    })
+    .catch(next);
+};
+
+exports.loginUser = (request, response, next) => {
+  const { username, password } = request.body;
+
+  if (!username || !password) {
+    return next({ status: 400, msg: "Username and password required" });
+  }
+
+  selectUserWithPassword(username)
+    .then((user) => {
+      if (!user) {
+        return Promise.reject({
+          status: 401,
+          msg: "Invalid username or password",
+        });
+      }
+
+      return bcrypt.compare(password, user.password_hash).then((isMatch) => {
+        if (!isMatch) {
+          return Promise.reject({
+            status: 401,
+            msg: "Invalid username or password",
+          });
+        }
+
+        const { password_hash, ...safeUser } = user;
+        response.status(200).send({ user: safeUser });
+      });
     })
     .catch(next);
 };

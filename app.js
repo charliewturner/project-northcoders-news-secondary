@@ -11,12 +11,12 @@ const {
   patchArticleVotes,
   deleteCommentById,
   getCommentsByArticleId,
-  addArticleIdsToComments,
+  // addArticleIdsToComments, // looks unused – you can delete this if not needed
+  loginUser, // ⬅ add this
 } = require("./controllers.js");
 const endpoints = require("./endpoints.json");
 
 app.use(cors());
-
 app.use(express.json());
 
 app.get("/", (request, response) => {
@@ -26,6 +26,7 @@ app.get("/", (request, response) => {
 app.get("/api", (request, response) => {
   response.status(200).send({ endpoints });
 });
+
 app.get("/api/topics", getAllTopics);
 app.get("/api/articles", getAllArticles);
 app.get("/api/articles/:article_id/comments", getCommentsByArticleId);
@@ -34,9 +35,10 @@ app.get("/api/users", getAllUsers);
 
 app.post("/api/articles/:article_id/comments", postCommentByArticleId);
 
+// new login route
+app.post("/api/login", loginUser);
+
 app.patch("/api/articles/:article_id", patchArticleVotes);
-
-
 app.delete("/api/comments/:comment_id", deleteCommentById);
 
 app.use((err, request, response, next) => {
@@ -47,4 +49,5 @@ app.use((err, request, response, next) => {
     response.status(500).send({ status: 500, msg: "Internal Server Error" });
   }
 });
+
 module.exports = app;

@@ -2,6 +2,7 @@ const db = require("../connection");
 const data = require("../data/development-data/index");
 const format = require("pg-format");
 const { convertTimestampToDate } = require("./utils");
+const bcrypt = require("bcrypt"); // ⬅ add this
 
 const createTopicsTable = format(`
   CREATE TABLE topics (
@@ -14,7 +15,8 @@ const createUsersTable = format(`
   CREATE TABLE users (
     username VARCHAR(50) PRIMARY KEY,
     name VARCHAR(50),
-    avatar_url VARCHAR(1000)
+    avatar_url VARCHAR(1000),
+    password_hash TEXT NOT NULL
   );`);
 
 const createArticlesTable = format(`
@@ -81,21 +83,26 @@ const seed = ({ topicData, userData, articleData, commentData }) => {
       );
       return db.query(updateTopicsTable);
     })
-    .then(() => {
-      const userValues = userData.map(({ username, name, avatar_url }) => [
-        username,
-        name,
-        avatar_url,
-      ]);
+    .then(async () => {
+      // userData now includes a "password" field
+      const userValues = await Promise.all(
+        userData.map(async ({ username, name, avatar_url, password }) => {
+          // hash the plaintext password
+          const password_hash = await bcrypt.hash(password, 10);
+          return [username, name, avatar_url, password_hash];
+        })
+      );
+
       const updateUsersTable = format(
         `
         INSERT INTO users
-        (username, name, avatar_url)
-         VALUES
+        (username, name, avatar_url, password_hash)
+        VALUES
           %L
-           RETURNING *;`,
+        RETURNING *;`,
         userValues
       );
+
       return db.query(updateUsersTable);
     })
     .then(() => {

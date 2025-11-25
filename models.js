@@ -1,5 +1,6 @@
 const db = require("./db/connection.js");
 const { articleData } = require("./db/data/development-data/index.js");
+const bcrypt = require("bcrypt");
 
 exports.selectAllTopics = () => {
   return db.query("SELECT * FROM topics").then((data) => {
@@ -133,4 +134,17 @@ exports.removeCommentById = (comment_id) => {
       if (rows.length === 0)
         return Promise.reject({ status: 404, msg: "Comment not found" });
     });
+};
+
+exports.selectUserWithPassword = (username) => {
+  return db
+    .query(
+      `
+      SELECT username, name, avatar_url, password_hash
+      FROM users
+      WHERE username = $1;
+    `,
+      [username]
+    )
+    .then(({ rows }) => rows[0] || null);
 };
