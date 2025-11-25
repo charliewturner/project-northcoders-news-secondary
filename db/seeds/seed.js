@@ -83,27 +83,31 @@ const seed = ({ topicData, userData, articleData, commentData }) => {
       );
       return db.query(updateTopicsTable);
     })
-    .then(async () => {
-      // userData now includes a "password" field
-      const userValues = await Promise.all(
-        userData.map(async ({ username, name, avatar_url, password }) => {
-          // hash the plaintext password
-          const password_hash = await bcrypt.hash(password, 10);
-          return [username, name, avatar_url, password_hash];
-        })
+    .then(() => {
+      const userValuesPromises = userData.map(
+        ({ username, name, avatar_url, password }) => {
+          // fallback for test data or any user without an explicit password
+          const plainPassword = password || "password123";
+
+          return bcrypt.hash(plainPassword, 10).then((password_hash) => {
+            return [username, name, avatar_url, password_hash];
+          });
+        }
       );
 
-      const updateUsersTable = format(
-        `
-        INSERT INTO users
-        (username, name, avatar_url, password_hash)
-        VALUES
-          %L
-        RETURNING *;`,
-        userValues
-      );
+      return Promise.all(userValuesPromises).then((userValues) => {
+        const updateUsersTable = format(
+          `
+      INSERT INTO users
+      (username, name, avatar_url, password_hash)
+      VALUES
+        %L
+      RETURNING *;`,
+          userValues
+        );
 
-      return db.query(updateUsersTable);
+        return db.query(updateUsersTable);
+      });
     })
     .then(() => {
       const articleValues = articleData.map((article) => {
