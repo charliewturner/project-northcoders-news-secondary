@@ -12,8 +12,10 @@ const {
   deleteCommentById,
   getCommentsByArticleId,
   getUserArticleVotes,
-  // addArticleIdsToComments, // looks unused – you can delete this if not needed
-  loginUser, // ⬅ add this
+  addArticleIdsToComments,
+  loginUser,
+  patchCommentVotes,
+  getUserCommentVotes,
 } = require("./controllers.js");
 const endpoints = require("./endpoints.json");
 
@@ -42,6 +44,9 @@ app.post("/api/articles/:article_id/comments", postCommentByArticleId);
 app.post("/api/login", loginUser);
 
 app.patch("/api/articles/:article_id", patchArticleVotes);
+app.patch("/api/comments/:comment_id", patchCommentVotes);
+app.get("/api/users/:username/article-votes", getUserArticleVotes);
+app.get("/api/users/:username/comment-votes", getUserCommentVotes);
 app.delete("/api/comments/:comment_id", deleteCommentById);
 
 app.use((err, request, response, next) => {

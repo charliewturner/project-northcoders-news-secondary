@@ -227,3 +227,81 @@ exports.selectArticleVotesByUser = (username) => {
     )
     .then(({ rows }) => rows);
 };
+
+exports.updateCommentVoteForUser = (comment_id, username, newVote) => {
+  if (![1, 0, -1].includes(newVote)) {
+    return Promise.reject({ status: 400, msg: "Invalid vote value" });
+  }
+
+  // find existing vote from this user on this comment
+  return db
+    .query(
+      `
+      SELECT vote
+      FROM comment_votes
+      WHERE comment_id = $1 AND username = $2;
+      `,
+      [comment_id, username]
+    )
+    .then(({ rows }) => {
+      const oldVote = rows[0]?.vote || 0;
+      const diff = newVote - oldVote;
+
+      if (diff === 0) {
+        // no change → just return current comment
+        return db
+          .query(`SELECT * FROM comments WHERE comment_id = $1;`, [comment_id])
+          .then(({ rows }) => {
+            if (!rows.length) {
+              return Promise.reject({ status: 404, msg: "Comment not found" });
+            }
+            return rows[0];
+          });
+      }
+
+      const upsertVoteQuery = `
+        INSERT INTO comment_votes (comment_id, username, vote)
+        VALUES ($1, $2, $3)
+        ON CONFLICT (comment_id, username)
+        DO UPDATE SET vote = EXCLUDED.vote;
+      `;
+
+      const updateCommentVotesQuery = `
+        UPDATE comments
+        SET votes = votes + $1
+        WHERE comment_id = $2
+        RETURNING *;
+      `;
+
+      return db
+        .query("BEGIN")
+        .then(() => db.query(upsertVoteQuery, [comment_id, username, newVote]))
+        .then(() => db.query(updateCommentVotesQuery, [diff, comment_id]))
+        .then(({ rows }) =>
+          db.query("COMMIT").then(() => {
+            if (!rows.length) {
+              return Promise.reject({ status: 404, msg: "Comment not found" });
+            }
+            return rows[0];
+          })
+        )
+        .catch((err) => {
+          return db.query("ROLLBACK").then(() => {
+            throw err;
+          });
+        });
+    });
+};
+
+exports.selectCommentVotesByUser = (username) => {
+  return db
+    .query(
+      `
+      SELECT comment_id, vote
+      FROM comment_votes
+      WHERE username = $1;
+      `,
+      [username]
+    )
+    .then(({ rows }) => rows);
+};

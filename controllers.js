@@ -9,6 +9,8 @@ const {
   fetchCommentsByArticleId,
   selectUserWithPassword,
   selectArticleVotesByUser,
+  updateCommentVoteForUser,
+  selectCommentVotesByUser,
 } = require("./models");
 const bcrypt = require("bcrypt");
 
@@ -146,6 +148,35 @@ exports.getUserArticleVotes = (request, response, next) => {
   const { username } = request.params;
 
   selectArticleVotesByUser(username)
+    .then((votes) => {
+      response.status(200).send({ votes });
+    })
+    .catch(next);
+};
+
+exports.patchCommentVotes = (request, response, next) => {
+  const { comment_id } = request.params;
+  const { username, vote } = request.body;
+
+  if (!username) {
+    return next({ status: 400, msg: "Username required for voting" });
+  }
+
+  if (![1, 0, -1].includes(vote)) {
+    return next({ status: 400, msg: "Invalid vote value" });
+  }
+
+  updateCommentVoteForUser(comment_id, username, vote)
+    .then((updatedComment) => {
+      response.status(200).send({ comment: updatedComment });
+    })
+    .catch(next);
+};
+
+exports.getUserCommentVotes = (request, response, next) => {
+  const { username } = request.params;
+
+  selectCommentVotesByUser(username)
     .then((votes) => {
       response.status(200).send({ votes });
     })
