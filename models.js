@@ -214,3 +214,16 @@ exports.updateArticleVoteForUser = (article_id, username, newVote) => {
         });
     });
 };
+
+exports.selectArticleVotesByUser = (username) => {
+  return db
+    .query(
+      `
+      SELECT article_id, vote
+      FROM article_votes
+      WHERE username = $1;
+      `,
+      [username]
+    )
+    .then(({ rows }) => rows);
+};

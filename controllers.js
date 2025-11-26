@@ -8,6 +8,7 @@ const {
   removeCommentById,
   fetchCommentsByArticleId,
   selectUserWithPassword,
+  selectArticleVotesByUser,
 } = require("./models");
 const bcrypt = require("bcrypt");
 
@@ -137,6 +138,16 @@ exports.loginUser = (request, response, next) => {
         const { password_hash, ...safeUser } = user;
         response.status(200).send({ user: safeUser });
       });
+    })
+    .catch(next);
+};
+
+exports.getUserArticleVotes = (request, response, next) => {
+  const { username } = request.params;
+
+  selectArticleVotesByUser(username)
+    .then((votes) => {
+      response.status(200).send({ votes });
     })
     .catch(next);
 };

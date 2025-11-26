@@ -11,6 +11,7 @@ const {
   patchArticleVotes,
   deleteCommentById,
   getCommentsByArticleId,
+  getUserArticleVotes,
   // addArticleIdsToComments, // looks unused – you can delete this if not needed
   loginUser, // ⬅ add this
 } = require("./controllers.js");
@@ -22,6 +23,8 @@ app.use(express.json());
 app.get("/", (request, response) => {
   response.status(200).send({ msg: "API reached successfully" });
 });
+
+app.get("/api/users/:username/article-votes", getUserArticleVotes);
 
 app.get("/api", (request, response) => {
   response.status(200).send({ endpoints });
