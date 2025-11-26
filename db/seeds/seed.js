@@ -45,12 +45,35 @@ CREATE TABLE comments (
   FOREIGN KEY (article_id) REFERENCES articles (article_id)
 );`);
 
+const createArticleVotesTable = format(`
+  CREATE TABLE article_votes (
+    article_id INT REFERENCES articles(article_id) ON DELETE CASCADE,
+    username VARCHAR(50) REFERENCES users(username) ON DELETE CASCADE,
+    vote INT NOT NULL CHECK (vote IN (-1, 0, 1)),
+    PRIMARY KEY (article_id, username)
+  );
+`);
+
+const createCommentVotesTable = format(`
+  CREATE TABLE comment_votes (
+    comment_id INT REFERENCES comments(comment_id) ON DELETE CASCADE,
+    username VARCHAR(50) REFERENCES users(username) ON DELETE CASCADE,
+    vote INT NOT NULL CHECK (vote IN (-1, 0, 1)),
+    PRIMARY KEY (comment_id, username)
+  );
+`);
+
 const seed = ({ topicData, userData, articleData, commentData }) => {
   // For this task you should create tables for topics, users, articles, and comments
 
   return db
     .query(
-      `DROP TABLE IF EXISTS comments; DROP TABLE IF EXISTS articles;DROP TABLE IF EXISTS users;DROP TABLE IF EXISTS topics;`
+      `DROP TABLE IF EXISTS comment_votes;
+DROP TABLE IF EXISTS article_votes;
+DROP TABLE IF EXISTS comments;
+DROP TABLE IF EXISTS articles;
+DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS topics;`
     )
     .then(() => {
       return db.query(createTopicsTable);
@@ -67,6 +90,8 @@ const seed = ({ topicData, userData, articleData, commentData }) => {
       }
       return db.query(createCommentsTable);
     })
+    .then(() => db.query(createArticleVotesTable))
+    .then(() => db.query(createCommentVotesTable))
     .then(() => {
       const topicValues = topicData.map(({ slug, description, img_url }) => [
         slug,

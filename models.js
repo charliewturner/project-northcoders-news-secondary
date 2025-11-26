@@ -148,3 +148,69 @@ exports.selectUserWithPassword = (username) => {
     )
     .then(({ rows }) => rows[0] || null);
 };
+
+exports.updateArticleVoteForUser = (article_id, username, newVote) => {
+  if (![1, 0, -1].includes(newVote)) {
+    return Promise.reject({ status: 400, msg: "Invalid vote value" });
+  }
+
+  // 1. Find existing vote from this user on this article (default 0)
+  return db
+    .query(
+      `
+      SELECT vote
+      FROM article_votes
+      WHERE article_id = $1 AND username = $2;
+      `,
+      [article_id, username]
+    )
+    .then(({ rows }) => {
+      const oldVote = rows[0]?.vote || 0;
+      const diff = newVote - oldVote;
+
+      // If nothing changed, just return the article as-is
+      if (diff === 0) {
+        return db
+          .query(`SELECT * FROM articles WHERE article_id = $1;`, [article_id])
+          .then(({ rows }) => {
+            if (!rows.length) {
+              return Promise.reject({ status: 404, msg: "Article not found" });
+            }
+            return rows[0];
+          });
+      }
+
+      const upsertVoteQuery = `
+        INSERT INTO article_votes (article_id, username, vote)
+        VALUES ($1, $2, $3)
+        ON CONFLICT (article_id, username)
+        DO UPDATE SET vote = EXCLUDED.vote;
+      `;
+
+      const updateArticleVotesQuery = `
+        UPDATE articles
+        SET votes = votes + $1
+        WHERE article_id = $2
+        RETURNING *;
+      `;
+
+      // 2. Apply both updates in a transaction
+      return db
+        .query("BEGIN")
+        .then(() => db.query(upsertVoteQuery, [article_id, username, newVote]))
+        .then(() => db.query(updateArticleVotesQuery, [diff, article_id]))
+        .then(({ rows }) =>
+          db.query("COMMIT").then(() => {
+            if (!rows.length) {
+              return Promise.reject({ status: 404, msg: "Article not found" });
+            }
+            return rows[0];
+          })
+        )
+        .catch((err) => {
+          return db.query("ROLLBACK").then(() => {
+            throw err;
+          });
+        });
+    });
+};

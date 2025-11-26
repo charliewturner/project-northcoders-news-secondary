@@ -4,7 +4,7 @@ const {
   selectAllUsers,
   selectArticleById,
   insertCommentByArticleId,
-  updateArticleVotes,
+  updateArticleVoteForUser,
   removeCommentById,
   fetchCommentsByArticleId,
   selectUserWithPassword,
@@ -73,15 +73,21 @@ exports.postCommentByArticleId = (request, response, next) => {
 
 exports.patchArticleVotes = (request, response, next) => {
   const { article_id } = request.params;
-  const { inc_votes } = request.body;
+  const { username, vote } = request.body;
 
-  updateArticleVotes(article_id, inc_votes)
+  if (!username) {
+    return next({ status: 400, msg: "Username required for voting" });
+  }
+
+  if (![1, 0, -1].includes(vote)) {
+    return next({ status: 400, msg: "Invalid vote value" });
+  }
+
+  updateArticleVoteForUser(article_id, username, vote)
     .then((updatedArticle) => {
-      response.status(200).send(updatedArticle);
+      response.status(200).send({ article: updatedArticle });
     })
-    .catch((err) => {
-      next(err);
-    });
+    .catch(next);
 };
 
 exports.getAllUsers = (request, response) => {
