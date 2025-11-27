@@ -16,6 +16,7 @@ const {
   loginUser,
   patchCommentVotes,
   getUserCommentVotes,
+  postArticle,
 } = require("./controllers.js");
 const endpoints = require("./endpoints.json");
 
@@ -42,6 +43,7 @@ app.post("/api/articles/:article_id/comments", postCommentByArticleId);
 
 // new login route
 app.post("/api/login", loginUser);
+app.post("/api/articles", postArticle);
 
 app.patch("/api/articles/:article_id", patchArticleVotes);
 app.patch("/api/comments/:comment_id", patchCommentVotes);

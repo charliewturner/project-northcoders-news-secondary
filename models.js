@@ -305,3 +305,19 @@ exports.selectCommentVotesByUser = (username) => {
     )
     .then(({ rows }) => rows);
 };
+
+exports.insertArticle = ({ author, title, topic, body, article_img_url }) => {
+  if (!author || !title || !topic || !body) {
+    return Promise.reject({ status: 400, msg: "Missing required fields" });
+  }
+
+  const query = `
+    INSERT INTO articles (author, title, topic, body, article_img_url)
+    VALUES ($1, $2, $3, $4, $5)
+    RETURNING *;
+  `;
+
+  return db
+    .query(query, [author, title, topic, body, article_img_url || null])
+    .then(({ rows }) => rows[0]);
+};

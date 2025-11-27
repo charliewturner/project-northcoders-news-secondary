@@ -11,6 +11,7 @@ const {
   selectArticleVotesByUser,
   updateCommentVoteForUser,
   selectCommentVotesByUser,
+  insertArticle,
 } = require("./models");
 const bcrypt = require("bcrypt");
 
@@ -179,6 +180,20 @@ exports.getUserCommentVotes = (request, response, next) => {
   selectCommentVotesByUser(username)
     .then((votes) => {
       response.status(200).send({ votes });
+    })
+    .catch(next);
+};
+
+exports.postArticle = (request, response, next) => {
+  const { author, title, topic, body, article_img_url } = request.body;
+
+  if (!author || !title || !topic || !body) {
+    return next({ status: 400, msg: "Missing required fields" });
+  }
+
+  insertArticle({ author, title, topic, body, article_img_url })
+    .then((article) => {
+      response.status(201).send({ article });
     })
     .catch(next);
 };
