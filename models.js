@@ -321,3 +321,24 @@ exports.insertArticle = ({ author, title, topic, body, article_img_url }) => {
     .query(query, [author, title, topic, body, article_img_url || null])
     .then(({ rows }) => rows[0]);
 };
+
+exports.removeArticleById = (article_id) => {
+  if (isNaN(article_id) || !article_id) {
+    return Promise.reject({ status: 400, msg: "Invalid article id" });
+  }
+
+  // First delete comments for that article to satisfy FK
+  return db
+    .query("DELETE FROM comments WHERE article_id = $1", [article_id])
+    .then(() => {
+      return db.query(
+        "DELETE FROM articles WHERE article_id = $1 RETURNING *",
+        [article_id]
+      );
+    })
+    .then(({ rows }) => {
+      if (rows.length === 0) {
+        return Promise.reject({ status: 404, msg: "Article not found" });
+      }
+    });
+};

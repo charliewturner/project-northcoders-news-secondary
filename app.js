@@ -16,6 +16,7 @@ const {
   loginUser,
   patchCommentVotes,
   getUserCommentVotes,
+  deleteArticleById,
   postArticle,
 } = require("./controllers.js");
 const endpoints = require("./endpoints.json");
@@ -50,6 +51,7 @@ app.patch("/api/comments/:comment_id", patchCommentVotes);
 app.get("/api/users/:username/article-votes", getUserArticleVotes);
 app.get("/api/users/:username/comment-votes", getUserCommentVotes);
 app.delete("/api/comments/:comment_id", deleteCommentById);
+app.delete("/api/articles/:article_id", deleteArticleById);
 
 app.use((err, request, response, next) => {
   if (err.status && err.msg) {

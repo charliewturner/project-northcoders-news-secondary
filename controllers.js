@@ -12,6 +12,7 @@ const {
   updateCommentVoteForUser,
   selectCommentVotesByUser,
   insertArticle,
+  removeArticleById,
 } = require("./models");
 const bcrypt = require("bcrypt");
 
@@ -184,16 +185,26 @@ exports.getUserCommentVotes = (request, response, next) => {
     .catch(next);
 };
 
-exports.postArticle = (request, response, next) => {
-  const { author, title, topic, body, article_img_url } = request.body;
+exports.postArticle = (req, res, next) => {
+  const { author, title, topic, body, article_img_url } = req.body;
 
   if (!author || !title || !topic || !body) {
     return next({ status: 400, msg: "Missing required fields" });
   }
+  removeArticleById,
+    insertArticle({ author, title, topic, body, article_img_url })
+      .then((article) => {
+        res.status(201).send({ article });
+      })
+      .catch(next);
+};
 
-  insertArticle({ author, title, topic, body, article_img_url })
-    .then((article) => {
-      response.status(201).send({ article });
+exports.deleteArticleById = (request, response, next) => {
+  const { article_id } = request.params;
+
+  removeArticleById(article_id)
+    .then(() => {
+      response.status(204).send();
     })
     .catch(next);
 };
